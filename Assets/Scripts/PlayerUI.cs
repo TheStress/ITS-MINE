@@ -9,6 +9,11 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = actor.score.ToString();
+        if(actor.stunned) {
+            text.text = "Stunned!";
+        }
+        else {
+            text.text = actor.score.ToString();
+        }
     }
 }
