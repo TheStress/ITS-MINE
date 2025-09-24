@@ -1,22 +1,17 @@
+using UnityEditor;
 using UnityEngine;
 
 public class GoldActor : TileActor
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public int health = 1;
 
     public override void TakeAttack(GameObject source) {
-        throw new System.NotImplementedException();
+        health--;
+        source.GetComponent<PlayerActor>().GiveScore(1);
+
+        if (health <= 0) {
+            Destroy(gameObject);
+        }
     }
 
     public override bool CanAttack() {

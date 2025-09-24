@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerActor : TileActor
 {
+    public float score;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,6 +13,10 @@ public class PlayerActor : TileActor
     void Update()
     {
         
+    }
+
+    public void GiveScore(float amount) {
+        score += amount;
     }
 
     public override void TakeAttack(GameObject source) {

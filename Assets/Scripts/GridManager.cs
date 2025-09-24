@@ -84,8 +84,13 @@ public class GridManager : MonoBehaviour
         return true;
     }
 
-    public void AttackActor(GameObject attacker, GameObject victim) {
-        victim.GetComponent<TileActor>().TakeAttack(attacker);
+    public void AttackTile(GameObject attacker, Vector2 position) {
+        if(WithinGrid(position)) { // Checking for valid position
+            GameObject victim = GetObjectOnTile(position);
+            if (victim != null) { // Checking for valid object
+                victim.GetComponent<TileActor>().TakeAttack(attacker);
+            }
+        }
     }
     public GameObject GetObjectOnTile(Vector2 position) {
         return GetGridTile(position).objectOnTile;

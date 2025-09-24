@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,23 +16,34 @@ public class PlayerController : MonoBehaviour
     {
         tileActor = GetComponent<TileActor>();
         gridManager = FindFirstObjectByType<GridManager>();
-        gridManager.MoveActor(gameObject,  new Vector2(0,0));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(left)) {
-            gridManager.MoveActor(gameObject, tileActor.position + new Vector2(-1, 0));
+        if(Input.GetKeyDown(left)) {
+            MoveInput(new Vector2(-1, 0));
         }
-        if (Input.GetKey(right)) {
-            gridManager.MoveActor(gameObject, tileActor.position + new Vector2(1, 0));
+        if (Input.GetKeyDown(right)) {
+            MoveInput(new Vector2(1, 0));
         }
-        if (Input.GetKey(up)) {
-            gridManager.MoveActor(gameObject, tileActor.position + new Vector2(0, 1));
+        if (Input.GetKeyDown(up)) {
+            MoveInput(new Vector2(0, 1));
         }
-        if (Input.GetKey(down)) {
-            gridManager.MoveActor(gameObject, tileActor.position + new Vector2(0, -1));
+        if (Input.GetKeyDown(down)) {
+            MoveInput(new Vector2(0, -1));
+        }
+    }
+
+    public void MoveInput(Vector2 inputDir) {
+        Vector2 newPos = tileActor.position + inputDir;
+        if (gridManager.WithinGrid(newPos)) {
+            if (gridManager.GetObjectOnTile(newPos) == null) {
+                gridManager.MoveActor(gameObject, newPos);
+            }
+            else {
+                gridManager.AttackTile(gameObject, newPos);
+            }
         }
     }
 }
