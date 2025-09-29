@@ -5,11 +5,17 @@ using Unity.VisualScripting;
 using UnityEngine.UIElements;
 public class GridManager : MonoBehaviour
 {
-    public List<List<GameObject>> grid = new List<List<GameObject>>();
-    public int width = 10;
-    public int height = 10; 
-    public float tileSize = 2;
-    public GameObject tilePrefab;
+    public List<List<GameObject>> grid = new List<List<GameObject>>(); // The Grid
+    public int width = 10; // The width of the grid
+    public int height = 10;  // The hight of the grid
+    public float tileSize = 2; // How big each tile is, this is for the grid generation and has nothing to do with
+    public GameObject tilePrefab; // The tile prefab that is spawned in 
+
+
+
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,12 +42,17 @@ public class GridManager : MonoBehaviour
     }
 
     private void UpdateActorPosition() {
-        GridTile currentTile;
+        GridTile currentTile; // Declaring 
+
+        // Iteratorating through whole grid
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                currentTile = GetGridTile(new Vector2(i, j));
-                if (currentTile.objectOnTile != null) {
-                    currentTile.objectOnTile.transform.position = currentTile.actorPlacement.position;
+
+                currentTile = GetGridTile(new Vector2(i, j)); // Getting tile at certain position
+                if (currentTile.objectOnTile != null) { // If there is something on the tile
+
+                    // Setting object ON the tile to the position of the tile
+                    currentTile.objectOnTile.transform.position = currentTile.actorPlacement.position; 
                 }
             }
         }
@@ -95,9 +106,11 @@ public class GridManager : MonoBehaviour
     public GameObject GetObjectOnTile(Vector2 position) {
         return GetGridTile(position).objectOnTile;
     }
+
     public GridTile GetGridTile(Vector2 position) {
         return grid[(int)position.x][(int)position.y].GetComponent<GridTile>();
     }
+
     public bool WithinGrid(Vector2 position) {
         if (position.x < 0 || position.x >= width) {
             return false;
